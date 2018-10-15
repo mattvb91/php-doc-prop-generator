@@ -1,0 +1,57 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "2d61656853e84bf9255cb4c223738405",
+    "packages": [
+        {
+            "name": "mattvb91/lightmodel",
+            "version": "0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mattvb91/LightModel.git",
+                "reference": "7fe6800c744a0382cbe7e318c98e70e3f6619e84"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mattvb91/LightModel/zipball/7fe6800c744a0382cbe7e318c98e70e3f6619e84",
+                "reference": "7fe6800c744a0382cbe7e318c98e70e3f6619e84",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.2"
+            },
+            "type": "package",
+            "autoload": {
+                "psr-4": {
+                    "mattvb91\\LightModel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Matthias von Bargen",
+                    "email": "matt@mavon.ie"
+                }
+            ],
+            "description": "Lightweight DB model",
+            "time": "2017-06-20T06:05:49+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
