@@ -1,0 +1,31 @@
+{
+  "name": "mattvb91/docPropGenerator",
+  "description": "@property class documentation generator for @mixin",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Matthias von Bargen",
+      "email": "matt@mavon.ie"
+    }
+  ],
+  "require": {
+    "mattvb91/lightmodel": "0.3.*",
+    "nategood/commando": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7",
+    "satooshi/php-coveralls": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "mattvb91\\DocPropGenerator\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "mattvb91\\DocPropGenerator\\Tests\\": "tests/"
+    }
+  },
+  "bin": ["bin/docPropGenerator.php"]
+}
