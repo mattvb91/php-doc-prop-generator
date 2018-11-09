@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4b8e690bfc72f393d2c722dff944111b",
+    "content-hash": "0ff6e990766da16146c620f962e6b22d",
     "packages": [
         {
             "name": "kevinlebrun/colors.php",
