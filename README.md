@@ -22,7 +22,7 @@ can simply `@mixin \DocProps\userProps`.
 ### Installation
 
 ```
-composer require --dev mattvb91/docPropGenerator
+composer require --dev mattvb91/docpropgenerator
 ```
 
 ### Usage
