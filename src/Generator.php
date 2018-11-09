@@ -4,20 +4,32 @@ namespace mattvb91\DocPropGenerator;
 
 use mattvb91\LightModel\DB\Table;
 use mattvb91\LightModel\LightModel;
-use PDO;
 
+/**
+ * Class Generator
+ * @package mattvb91\DocPropGenerator
+ */
 class Generator
 {
-    private $_pdo;
 
-    public function __construct()
+    private $_pdo, $_namespace;
+
+    public function __construct(string $dbHost,
+                                string $dbName,
+                                string $dbUser,
+                                string $dbPass,
+                                string $namespace = "DocProps"
+    )
     {
-        LightModel::init($this->getPdo());
+        $this->_pdo = new \PDO('mysql:dbname=' . $dbName . ';host=' . $dbHost, $dbUser, $dbPass);
+        LightModel::init($this->_pdo);
+
+        $this->_namespace = $namespace;
     }
 
     public function generate()
     {
-        $tables = $this->getPdo()->prepare('SHOW TABLES');
+        $tables = $this->_pdo->prepare('SHOW TABLES');
         $tables->execute();
 
         $casts = [
@@ -32,38 +44,29 @@ class Generator
             'date'      => 'string',
         ];
 
-        if (!is_dir(__DIR__ . '/generated')) {
-            mkdir(__DIR__ . '/generated');
+        if (! is_dir(__DIR__ . '/../generated'))
+        {
+            mkdir(__DIR__ . '/../generated');
         }
 
-        foreach ($tables->fetchAll(PDO::FETCH_COLUMN) as $table) {
+        foreach ($tables->fetchAll(\PDO::FETCH_COLUMN) as $table)
+        {
             $table = new Table($table);
 
-            $res = '<?php' . PHP_EOL . PHP_EOL . 'namespace DocProps;' . PHP_EOL . PHP_EOL;
-            $res .= '/**' . PHP_EOL;
-            $res .= ' * AUTO GENERATED! ONLY USE FOR @mixin documentation' . PHP_EOL;
+            $out = '<?php' . PHP_EOL . PHP_EOL . 'namespace ' . $this->_namespace . ';' . PHP_EOL . PHP_EOL;
+            $out .= '/**' . PHP_EOL;
+            $out .= ' * AUTO GENERATED! ONLY USE FOR @mixin documentation' . PHP_EOL;
 
             /** @var \mattvb91\LightModel\DB\Column $column */
-            foreach ($table->getColumns() as $column) {
-                $res .= ' * @property ' . (array_key_exists($column->getType(), $casts) ? $casts[$column->getType()] : $column->getType()) . ' ' . $column->getField() . PHP_EOL;
+            foreach ($table->getColumns() as $column)
+            {
+                $out .= ' * @property ' . (array_key_exists($column->getType(), $casts) ? $casts[$column->getType()] : $column->getType()) . ' ' . $column->getField() . PHP_EOL;
             }
 
-            $res .= ' */' . PHP_EOL;
-            $res .= 'class ' . $table->getName() . 'Props {}';
+            $out .= ' */' . PHP_EOL;
+            $out .= 'final class ' . $table->getName() . 'Props {}';
 
-            file_put_contents(__DIR__ . '/generated/' . $table->getName() . 'Props.php', $res . PHP_EOL);
+            file_put_contents(__DIR__ . '/../generated/' . $table->getName() . 'Props.php', $out . PHP_EOL);
         }
-    }
-
-    /**
-     * @return PDO
-     */
-    public function getPdo(): PDO
-    {
-        if (!$this->_pdo) {
-            $this->_pdo = new PDO('mysql:dbname=oxid;host=127.0.0.1', 'root', 'root');
-        }
-
-        return $this->_pdo;
     }
 }
